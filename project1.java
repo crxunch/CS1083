@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MyClass {
+public class Trucking {
     public static void main(String[] args) {
         System.out.println("Spring 2024 - CS1083 - Section 004 - Project 1 - Trucking - written by CHRISTIAN CHRISTOVICH\n");
         
