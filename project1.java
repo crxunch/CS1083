@@ -1,3 +1,6 @@
+// Written by Christian Christovich
+// I couldn't do the formatting in an elegant way I apologize
+
 import java.util.*;
 
 public class Trucking {
