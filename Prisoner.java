@@ -1,8 +1,7 @@
 
-
 /*
 TO-DO:
-    1. Add logic to loop until user provides 5 as an option. This also includes validating input inside of the loop continually, too tired to do it right now.
+    1. Logic fixed temporarily with a while true loop, may need to do significant refactoring or have two while loops
     2. Write the append method
     3. Write option 3
 */
@@ -21,14 +20,12 @@ public class Prisoner {
         // Get number of centers
         System.out.print("Please, enter the initial number of detention centers in the database (Max 12): ");
         gCenterCounter = gSCANNER.nextInt();
-        System.out.println();
 
         // Ensure number of centers is within range of max
         while ((gCenterCounter > gMAX_CENTERS) || (gCenterCounter < 0)) {
             System.out.println("ERROR, you need to enter a valid value based on the next message.");
             System.out.print("Please, enter the initial number of detention centers in the database (Max 12): ");
             gCenterCounter = gSCANNER.nextInt();
-            System.out.println();
         }
 
         // initialize gPrisoner with 0 for all indexes
@@ -43,70 +40,37 @@ public class Prisoner {
         gPrisoner[6] = 600;
 
         // main menu
-        System.out.println("MAIN MENU");
-        System.out.println("0 - Clear centers, 1 - List centers, 2 - Add/Subtract prisoners, 3 - Add new center, 4 - Center analysis, 5 - Exit");
-        System.out.print("Select an option : ");
-        int option = gSCANNER.nextInt();
+        while (true) {
+            System.out.println("\nMAIN MENU");
+            System.out.println("0 - Clear centers, 1 - List centers, 2 - Add/Subtract prisoners, 3 - Add new center, 4 - Center analysis, 5 - Exit");
+            System.out.print("Select an option : ");
+            int option = gSCANNER.nextInt();
 
-        // selected option logic
-        if (option == 0) {
-            clear();
-        } else if (option == 1) {
-            list();
-        } else if (option == 2) {
-            // declare variables
-            int index;
-            int quantity;
-            char add;
-
-            // get validated index
-            System.out.printf("Enter the index (%d to %d) : ", 0, gCenterCounter - 1);
-            index = gSCANNER.nextInt();
-            System.out.println();
-            while ((index >= gCenterCounter) || (index < 0)) {
+            // selected option logic
+            if (option == 0) {
+                clear();
+            } else if (option == 1) {
+                list();
+            } else if (option == 2) {
+                addSub();
+            } else if (option == 3) {
+                // if (gCenterCounter == gMAX_CENTERS) {
+                //     System.out.println("The databse is full, no more centers can be added");
+                // } else {
+                //     append();
+                // }
+            } else if (option == 4) {
+                analysis();
+            } else if (option == 5) {
+                System.out.println("Thank you for using the Prisoner detention center program!");
+                break;
+            } else {
                 System.out.println("ERROR, you need to enter a valid value based on the next message.");
-                System.out.printf("Enter the index (%d to %d) : ", 0, gCenterCounter - 1);
-                index = gSCANNER.nextInt();
-                System.out.println();
+                System.out.println("\nMAIN MENU");
+                System.out.println("0 - Clear centers, 1 - List centers, 2 - Add/Subtract prisoners, 3 - Add new center, 4 - Center analysis, 5 - Exit");
+                System.out.print("Select an option : ");
+                option = gSCANNER.nextInt();
             }
-
-            System.out.printf("The current occupancy of the center at index %d is : %d\n", index, gPrisoner[index]);
-
-            // get validated prisoners quantity
-            System.out.printf("Enter the number of the prisoners (%d to %d) : ", 0, 200);
-            quantity = gSCANNER.nextInt();
-            System.out.println();
-            while ((quantity > 200) || (index < 0)) {
-                System.out.println("ERROR, you need to enter a valid value based on the next message.");
-                System.out.printf("The current occupancy of the center at index %d is : %d\n", index, gPrisoner[index]);
-                System.out.printf("Enter the number of the prisoners (%d to %d) : ", 0, 200);
-                quantity = gSCANNER.nextInt();
-                System.out.println();
-            }
-
-            // get validated add value
-            System.out.printf("Are the prisoners to be added to the center at index %d? (Y/N): ", index);
-            add = gSCANNER.next().charAt(0);
-            System.out.println();
-            while ((add != 'Y') && (add != 'N')) {
-                System.out.println("ERROR, you need to enter a valid value based on the next message.");
-                System.out.printf("Are the prisoners to be added to the center at index %d? (Y/N): ", index);
-                add = gSCANNER.next().charAt(0);
-                System.out.println();
-            }
-            addSub(index, quantity, add);
-        } else if (option == 3) {
-            // if (gCenterCounter == gMAX_CENTERS) {
-            //     System.out.println("The databse is full, no more centers can be added");
-            // } else {
-            //     append();
-            // }
-        } else if (option == 4) {
-            analysis();
-        } else if (option == 5) {
-            System.out.println("Thank you for using the Prisoner detention center program!");
-        } else {
-            // code
         }
     }
 
@@ -118,7 +82,47 @@ public class Prisoner {
     }
 
     // addSub method
-    public static void addSub(int index, int quantity, char add) {
+    public static void addSub() {
+        // declare variables
+        int index;
+        int quantity;
+        char add;
+
+        // get validated index
+        System.out.printf("Enter the index (%d to %d) : ", 0, gCenterCounter - 1);
+        index = gSCANNER.nextInt();
+        System.out.println();
+        while ((index >= gCenterCounter) || (index < 0)) {
+            System.out.println("ERROR, you need to enter a valid value based on the next message.");
+            System.out.printf("Enter the index (%d to %d) : ", 0, gCenterCounter - 1);
+            index = gSCANNER.nextInt();
+            System.out.println();
+        }
+
+        System.out.printf("The current occupancy of the center at index %d is : %d\n", index, gPrisoner[index]);
+
+        // get validated prisoners quantity
+        System.out.printf("Enter the number of the prisoners (%d to %d) : ", 0, 200);
+        quantity = gSCANNER.nextInt();
+        System.out.println();
+        while ((quantity > 200) || (index < 0)) {
+            System.out.println("ERROR, you need to enter a valid value based on the next message.");
+            System.out.printf("The current occupancy of the center at index %d is : %d\n", index, gPrisoner[index]);
+            System.out.printf("Enter the number of the prisoners (%d to %d) : ", 0, 200);
+            quantity = gSCANNER.nextInt();
+            System.out.println();
+        }
+
+        // get validated add value
+        System.out.printf("Are the prisoners to be added to the center at index %d? (Y/N): ", index);
+        add = gSCANNER.next().charAt(0);
+        System.out.println();
+        while ((add != 'Y') && (add != 'N')) {
+            System.out.println("ERROR, you need to enter a valid value based on the next message.");
+            System.out.printf("Are the prisoners to be added to the center at index %d? (Y/N): ", index);
+            add = gSCANNER.next().charAt(0);
+            System.out.println();
+        }
         if (add == 'Y') {
             gPrisoner[index] += quantity;
         } else if (quantity > gPrisoner[index]){
@@ -151,7 +155,7 @@ public class Prisoner {
         System.out.printf("Over capacity\t\t: %d\n", count_over);
     }
 
-    // get prisoner by class method
+    // getPrisonerByClass method
     public static int getPrisonerByClass(int code) {
         int count = 0;
         for (int i = 0; i < gCenterCounter; i++) {
@@ -180,6 +184,7 @@ public class Prisoner {
         return count;
     }
 
+    // append method
     public static void append() {
         // code
     }
