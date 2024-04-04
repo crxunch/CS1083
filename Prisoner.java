@@ -1,7 +1,7 @@
 
 /*
 TO-DO:
-    1. maybe do the transfer method
+    1. add comments
 */
 
 import java.util.*;
@@ -32,14 +32,14 @@ public class Prisoner {
         // main menu
         while (true) {
             System.out.println("\nMAIN MENU");
-            System.out.println("0 - Clear centers, 1 - List centers, 2 - Add/Subtract prisoners, 3 - Add new center, 4 - Center analysis, 5 - Exit");
+            System.out.println("0 - Clear centers, 1 - List centers, 2 - Add/Subtract prisoners, 3 - Add new center, 4 - Center analysis, 5 - Transfer prisoners, 6 - Exit");
             System.out.print("Select an option : ");
             int option = gSCANNER.nextInt();
 
-            while ((option > 5) || (option < 0)) {
+            while ((option > 6) || (option < 0)) {
                 System.out.println("ERROR, you need to enter a valid value based on the next message.");
                 System.out.println("\nMAIN MENU");
-                System.out.println("0 - Clear centers, 1 - List centers, 2 - Add/Subtract prisoners, 3 - Add new center, 4 - Center analysis, 5 - Exit");
+                System.out.println("0 - Clear centers, 1 - List centers, 2 - Add/Subtract prisoners, 3 - Add new center, 4 - Center analysis, 5 - Transfer prisoners, 6 - Exit");
                 System.out.print("Select an option : ");
                 option = gSCANNER.nextInt();
             }
@@ -55,6 +55,8 @@ public class Prisoner {
                 append();
             } else if (option == 4) {
                 analysis();
+            } else if (option == 5) {
+                transfer();
             } else {
                 System.out.println("Thank you for using the Prisoner detention center program!");
                 break;
@@ -183,4 +185,55 @@ public class Prisoner {
             gCenterCounter += 1;
         }
     }
+
+    // transfer method
+    public static void transfer() {
+        int idxFrom;
+        int idxTo;
+        int quantity;
+
+        // get validated idxFrom
+        System.out.printf("Enter the center where the prisoners will be transfered from (%d to %d) : ", 0, gCenterCounter - 1);
+        idxFrom = gSCANNER.nextInt();
+        while ((idxFrom >= gCenterCounter) || (idxFrom < 0)) {
+            System.out.println("ERROR, you need to enter a valid value based on the next message.");
+            System.out.printf("Enter the center where the prisoners will be transfered from (%d to %d) : ", 0, gCenterCounter - 1);
+            idxFrom = gSCANNER.nextInt();
+        }
+
+        System.out.printf("The current occupancy of the center at index %d is : %d\n", idxFrom, gPrisoner[idxFrom]);
+
+        // get validated quantity
+        System.out.printf("Enter the number of the prisoners to transfer to the other center (%d to %d) : ", 0, gPrisoner[idxFrom]);
+        quantity = gSCANNER.nextInt();
+        while ((quantity > gPrisoner[idxFrom]) || (quantity < 0)) {
+            System.out.println("ERROR, you need to enter a valid value based on the next message.");
+            System.out.printf("The current occupancy of the center at index %d is : %d\n", idxFrom, gPrisoner[idxFrom]);
+            System.out.printf("Enter the number of the prisoners to transfer to the other center (%d to %d) : ", 0, gPrisoner[idxFrom]);
+            quantity = gSCANNER.nextInt();
+        }
+
+        // get validated idxTo
+        System.out.printf("Enter the center where the prisoners will be transfered to (%d to %d) that is not %d: ", 0, gCenterCounter - 1, idxFrom);
+        idxTo = gSCANNER.nextInt();
+        while ((idxTo >= gCenterCounter) || (idxTo < 0) || (idxTo == idxFrom)) {
+            System.out.println("ERROR, you need to enter a valid value based on the next message.");
+            System.out.printf("Enter the center where the prisoners will be transfered to (%d to %d) that is not %d: ", 0, gCenterCounter - 1, idxFrom);
+            idxTo = gSCANNER.nextInt();
+        }
+
+        gPrisoner[idxFrom] -= quantity;
+        gPrisoner[idxTo] += quantity;
+    }
 }
+
+/*
+
+    \    /
+<(•)>    <(•)>
+     |  |
+|   (•  •)   |
+ \__________/
+  \/  \/  \/
+
+*/
