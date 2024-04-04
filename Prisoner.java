@@ -1,12 +1,17 @@
 
 /*
-TO-DO:
-    1. add comments
+
+Written by Christian Christovich
+Prisoner Detention Center Management Program written for CS 1083 Section 4
+This program includes the extra credit option 2 implemented
+
 */
 
 import java.util.*;
 
 public class Prisoner {
+
+    // declare (and initialize) global variables
     public static int[] gPrisoner;
     public static int gCenterCounter;
     public static final Scanner gSCANNER = new Scanner(System.in);
@@ -64,14 +69,14 @@ public class Prisoner {
         }
     }
 
-    // clear method
+    // clear method: used to set the number of prisoners in all detention centers to 0
     public static void clear() {
         for (int i = 0; i < gCenterCounter; i++) {
             gPrisoner[i] = 0;
         }
     }
 
-    // addSub method
+    // addSub method: used to add or subtract prisoners from a detention center
     public static void addSub() {
         // declare variables
         int index;
@@ -107,6 +112,8 @@ public class Prisoner {
             System.out.printf("Are the prisoners to be added to the center at index %d? (Y/N): ", index);
             add = gSCANNER.next().charAt(0);
         }
+
+        // add or subtract prisoners based on user input
         if (add == 'Y') {
             gPrisoner[index] += quantity;
         } else if (quantity > gPrisoner[index]){
@@ -116,7 +123,7 @@ public class Prisoner {
         }
     }
 
-    // list method
+    // list method: used to list the detention centers and the number of prisoners occupying them
     public static void list() {
         System.out.println("List of Prisoner Detention Center Occupancy");
         for(int i = 0; i < gCenterCounter; i++) {
@@ -124,7 +131,7 @@ public class Prisoner {
         }
     }
 
-    // analysis method
+    // analysis method: used to qualitatively analyze the capacity of each center
     public static void analysis() {
         System.out.println("Occupancy Classification Summary");
         int count_under = getPrisonerByClass(0);
@@ -139,7 +146,7 @@ public class Prisoner {
         System.out.printf("Over capacity\t\t: %d\n", count_over);
     }
 
-    // getPrisonerByClass method
+    // getPrisonerByClass method: used to determine the population qualification of a center based on the provided code
     public static int getPrisonerByClass(int code) {
         int count = 0;
         for (int i = 0; i < gCenterCounter; i++) {
@@ -168,7 +175,7 @@ public class Prisoner {
         return count;
     }
 
-    // append method
+    // append method: used to add a new detention center with a user supplied number of prisoners
     public static void append() {
         if (gCenterCounter >= gMAX_CENTERS) {
             System.out.println("Cannot add a new detention center as the maximum number of detention centers has been reached.");
@@ -186,7 +193,7 @@ public class Prisoner {
         }
     }
 
-    // transfer method
+    // transfer method: used to transfer prisoners from one center to another
     public static void transfer() {
         int idxFrom;
         int idxTo;
