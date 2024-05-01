@@ -5,7 +5,6 @@ public class Prisoner {
     public static final Scanner gSCANNER = new Scanner(System.in);
     public static final int gMAX_CENTERS = 12;
     public static void main(String[] args) {
-        System.out.println("Spring 2024 - UTSA - CS1083 - Section 004 - Project 2 - Prisoner - written by CHRISTIAN CHRISTOVICH\n");
         System.out.print("Please, enter the initial number of detention centers in the database (Max 12): ");
         gCenterCounter = gSCANNER.nextInt();
         while ((gCenterCounter > gMAX_CENTERS) || (gCenterCounter < 0)) {
